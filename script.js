@@ -1,31 +1,25 @@
-//const button2 = document.querySelector('.second-hover-video-button');
-//const video2 = button2.querySelector('.second-btn-video');
+const containers = document.querySelectorAll('.second-video-container');
 
-//button2.addEventListener('mouseenter', () => {
-//    video2.currentTime = 0;
-//    video2.playbackRate = 1;
-//    video2.style.opacity = 1;
-//    video2.play();
-//})
+containers.forEach(container => {
+  const video = container.querySelector('.second-btn-video');
+  const placeholder = container.querySelector('.second-video-placeholder');
 
-//video2.addEventListener('ended', () => {
-//    video2.style.opacity = 0;
-//});
+  video.addEventListener('loadedmetadata', () => {
+    video.currentTime = video.duration - 0.01;
+    video.pause();
+  });
 
-const buttons = document.querySelectorAll('.second-hover-video-button');
-
-buttons.forEach(button => {
-    const video = button.querySelector('.second-btn-video');
-
-    button.addEventListener('mouseenter', () => {
+  container.addEventListener('mouseenter', () => {
+    placeholder.style.opacity = 0;
     video.currentTime = 0;
-    video.playbackRate = 1;
-    video.style.opacity = 1;
     video.play();
-});
+    video.style.opacity = 1;
+  });
 
-video.addEventListener('ended', () => {
+  container.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = video.duration - 0.01;
     video.style.opacity = 0;
-});
-
+    placeholder.style.opacity = 1;
+  });
 });
